@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="js/jquery.mkslider.js"></script>
+  <script>
+    $(function() {
+      $(".slider1").mkslider({autoPlay: false});
+      $(".slider2").mkslider();
+    });
+  </script>
+  <style>
+
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="slider1">
+    <ul>
+      <li><img src="images/01.jpg" alt=""></li>
+      <li><img src="images/02.jpg" alt=""></li>
+      <li><img src="images/03.jpg" alt=""></li>
+      <li><img src="images/04.jpg" alt=""></li>
+    </ul>
+    <div class="navi">
+      <p><a href="" class="navi_next">next</a></p>
+      <p><a href="" class="navi_prev">prev</a></p>
+    </div>
+  </div>
+  <h1>これはテストです</h1>
+  <div class="slider2">
+    <ul>
+      <li><img src="images/01.jpg" alt=""></li>
+      <li><img src="images/02.jpg" alt=""></li>
+      <li><img src="images/03.jpg" alt=""></li>
+      <li><img src="images/04.jpg" alt=""></li>
+    </ul>
+  </div>
+</body>
+</html>
