@@ -6,11 +6,13 @@
       autoPlay: true,
       autoPlayInterval: 5000,
       maxHeight: 600,
+      loading: false
     }, options);
 
 
     var Slider = function(target) {
       this.$target = $(target);
+      this.$target.css({ position: "relative" });
       this.imageCount = $("li", this.$target).length;
       this.moveIndex = 0;
 
@@ -37,14 +39,23 @@
     Slider.prototype.loading = function(callback) {
       var _self = this;
       var triggerCount = 0;
+      var $loading = $("<div></div>");
 
       _self.$target.children().hide();
-      _self.$target.append("<div class='loading'>読み込み中...</div>");
 
-      var $loading = $(".loading", _self.$target);
-      $loading.css({
-        // TODO: lodingの表示位置を調整
-      });
+      if (options.loading) {
+        _self.$target.append("<div class='loading'><img src='images/ajax-loader.gif'></div>");
+        $loading = $(".loading", _self.$target);
+        $loading.css({
+          width: "100%",
+          height: $(window).height() / 2
+        });
+        $("img", $loading).css({
+          position: "absolute",
+          top: "50%",
+          left: "50%"
+        });
+      }
 
       var complite = function() {
         $loading.fadeOut(function(){
