@@ -4,7 +4,7 @@
 
     options = $.extend({
       autoPlay: true,
-      autoPlayInterval: 7000,
+      autoPlayInterval: 5000,
       maxHeight: 600,
     }, options);
 
@@ -50,7 +50,6 @@
         $loading.fadeOut(function(){
           $loading.remove();
           if(callback) {
-            // ここはcallbackとfadeInの位置が逆でもOKか検証
             _self.$target.children().fadeIn();
             callback();
           }
@@ -89,16 +88,23 @@
         });
 
         // 画像サイズをwindow幅に合わせる
-        _self.$images.each(function() {
+        var minHeight = 0;
+        _self.$images.each(function(index) {
           $parent = $(this).parent();
           $(this).width(windowWidth);
           $parent.width(windowWidth);
           widthSum += $(this).width();
+          minHeight = index === 0 ? $(this).height() : Math.min(minHeight, $(this).height());
           if($(this).height() > options.maxHeight) {
-            $parent.height(options.maxHeight);
+            $parent.css({
+              height: options.maxHeight,
+              overflow: "hidden"
+            });
             $(this).css({
               marginTop: -(($(this).height() - options.maxHeight) / 2)
             });
+          } else {
+            $parent.css({ height: $(this).height() });
           }
         });
 
@@ -110,7 +116,7 @@
       }
 
       // 要素をラップする
-      $("ul", _self.$target).wrap("<div class='slide_wrap'></div>");
+      $("ul", _self.$target).wrap("<div class='slide_wrap clearFix'></div>");
       _self.$images.wrap("<div class='slide_item'></div>");
       _self.$slideWrap = $(".slide_wrap", _self.$target);
 
@@ -120,6 +126,7 @@
         listStyle: "none"
       });
 
+      // スライダーマウスオーバー時
       _self.$target.hover(
         function() {
           _self.animationStop();
