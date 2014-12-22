@@ -6,7 +6,9 @@
       autoPlay: true,
       autoPlayInterval: 5000,
       maxHeight: 600,
-      loading: false
+      mouseOverSlideStop: true,
+      loading: false,
+      loadingComp: null
     }, options);
 
 
@@ -138,15 +140,17 @@
       });
 
       // スライダーマウスオーバー時
-      _self.$target.hover(
-        function() {
-          _self.animationStop();
-        },
-        function() {
-          if (options.autoPlay) {
-            _self.animationStart();
-          }
-        });
+      if (options.mouseOverSlideStop) {
+        _self.$target.hover(
+          function() {
+            _self.animationStop();
+          },
+          function() {
+            if (options.autoPlay) {
+              _self.animationStart();
+            }
+          });
+      }
 
       $(window).on('resize', resize);
       resize();
@@ -240,6 +244,10 @@
             e.preventDefault();
             slider.move("prev");
           });
+        }
+
+        if (options.loadingComp()){
+          options.loadingComp();
         }
       });
     });
